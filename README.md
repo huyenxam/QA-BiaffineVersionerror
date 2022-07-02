@@ -1,5 +1,5 @@
 Pytorch implementation of Analyzing Vietnamese Legal Question using Deep Neural Network with Biaffine  classifiers
-
+Sử dụng slide window 
 ## Model Architecture
 
 <p float="left" align="center">
@@ -18,8 +18,8 @@ Pytorch implementation of Analyzing Vietnamese Legal Question using Deep Neural 
 ## Training & Evaluation
 
 ```bash
-git clone https://github.com/huyenxam/QA-Biaffine.git
-cd QA-Biaffine
+git clone https://github.com/huyenxam/QA-BiaffineVersion1.git
+cd QA-BiaffineVersion1
 pip install -r requirements.txt
 bash train.sh
 ```

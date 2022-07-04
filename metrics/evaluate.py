@@ -26,6 +26,7 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
 
         f1_idx = [0]
         extract_match_idx = [0]
+        OK = 0
         for lb in labels:
 
             start = lb[1]
@@ -35,16 +36,16 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
             start_pre = int(predictions[i][1])
             end_pre = int(predictions[i][2])
             label_prediction = " ".join(sentence[start_pre:end_pre+1])
-            f1_idx.append(f1_score(label_prediction, ground_truth))
-            extract_match_idx.append(exact_match_score(label_prediction, ground_truth))
-
+            if start != 0 and end != 0:
+                f1_idx.append(f1_score(label_prediction, ground_truth))
+                extract_match_idx.append(exact_match_score(label_prediction, ground_truth))
+                OK = 1
             # print(ground_truth)
             # print(label_prediction)
-
-
-        f1 += max(f1_idx)
-        exact_match += max(extract_match_idx)
-        total += 1
+        if OK == 1:
+            f1 += max(f1_idx)
+            exact_match += max(extract_match_idx)
+            total += 1
         
     if total == 0:
         f1 = 0

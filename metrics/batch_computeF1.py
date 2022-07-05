@@ -19,7 +19,7 @@ def get_pred_entity(cate_pred, span_scores,label_set, is_flat_ner= True):
             res_entity.append((t,ns, ne))
     
     if not top_span:
-        top_span = [('ANSWER', 0, 0)]
+        top_span = [('ANSWER', 0, 0, 0)]
 
     return top_span[0]
 

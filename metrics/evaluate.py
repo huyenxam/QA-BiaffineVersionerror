@@ -36,8 +36,8 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
             labels = sample['label']
             for lb in labels:
                 ground_truth = lb[3]
-                print(ground_truth)
-                print(label_prediction)
+                # print(ground_truth)
+                # print(label_prediction)
                 f1_idx.append(f1_score(label_prediction, ground_truth))
                 extract_match_idx.append(exact_match_score(label_prediction, ground_truth))
             i += 1
@@ -58,8 +58,8 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
             labels = sample['label']
             for lb in labels:
                 ground_truth = lb[3] 
-                print(ground_truth)
-                print(label_prediction)
+                # print(ground_truth)
+                # print(label_prediction)
                 f1_idx.append(f1_score(label_prediction, ground_truth))
                 extract_match_idx.append(exact_match_score(label_prediction, ground_truth))
         f1 += max(f1_idx)

@@ -6,17 +6,6 @@ def get_pred_entity(cate_pred, span_scores,label_set, is_flat_ner= True):
                 tmp = (label_set[cate_pred[i][j].item()], i, j,span_scores[i][j].item())
                 top_span.append(tmp)
     top_span = sorted(top_span, reverse=True, key=lambda x: x[3])
-    res_entity = []
-    for t, ns, ne, _ in top_span:
-        for _,ts, te, in res_entity:
-            if ns < ts <= ne < te or ts < ns <= te < ne:
-                # for both nested and flat ner no clash is allowed
-                break
-            if is_flat_ner and (ns <= ts <= te <= ne or ts <= ns <= ne <= te):
-                # for flat ner nested mentions are not allowed
-                break
-        else:
-            res_entity.append((t,ns, ne))
     
     if not top_span:
         top_span = [('ANSWER', 0, 0, 0)]

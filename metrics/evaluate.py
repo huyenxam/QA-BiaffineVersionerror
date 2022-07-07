@@ -20,31 +20,33 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
         list_sample = json.load(f)
 
     for i, sample in enumerate(list_sample): 
-        context = sample['context'].split(' ')  
-        question = sample['question'].split(' ')  
+        context = sample['context'].split(' ')
+        question = sample['question'].split(' ')
+
         max_seq = max_seq_length - len(question) - 2 
         if len(context) <= max_seq:
             sent = ['cls'] + question + ['sep'] +  context
             f1_idx = [0]
             extract_match_idx = [0]
+
+            start_pre = int(predictions[i][1])
+            end_pre = int(predictions[i][2])
+            label_prediction = " ".join(sent[start_pre:end_pre+1])
+
             labels = sample['label']
             for lb in labels:
-                start = lb[1]
-                end = lb[2]
-                ground_truth = " ".join(context[start:end+1])
-                
-                start_pre = int(predictions[i][1])
-                end_pre = int(predictions[i][2])
-                label_prediction = " ".join(sent[start_pre:end_pre+1])
+                ground_truth = lb[3]
+                print(ground_truth)
+                print(label_prediction)
                 f1_idx.append(f1_score(label_prediction, ground_truth))
                 extract_match_idx.append(exact_match_score(label_prediction, ground_truth))
             i += 1
         else:
             score_max = 0
             label_prediction = ""
-            while(len(context) > max_seq):                      # Cắt câu sử dụng sliding window cho đến khi len(context) < max_sep
+            while(len(context) > max_seq):                     
                 ctx = context[:max_seq]
-                sent = question + ctx
+                sent = ['cls'] + question + ['sep'] +  ctx
                 context = context[stride:]
                 score = predictions[i][3]
                 if score > score_max:
@@ -55,9 +57,9 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
                 i += 1
             labels = sample['label']
             for lb in labels:
-                start = lb[1]
-                end = lb[2]
-                ground_truth = " ".join(context[start:end+1])  
+                ground_truth = lb[3] 
+                print(ground_truth)
+                print(label_prediction)
                 f1_idx.append(f1_score(label_prediction, ground_truth))
                 extract_match_idx.append(exact_match_score(label_prediction, ground_truth))
         f1 += max(f1_idx)

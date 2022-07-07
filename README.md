@@ -1,4 +1,3 @@
-Pytorch implementation of Analyzing Vietnamese Legal Question using Deep Neural Network with Biaffine  classifiers
 Sử dụng slide window 
 ## Model Architecture
 

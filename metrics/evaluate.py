@@ -49,11 +49,13 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
                 sent = ['cls'] + question + ['sep'] +  ctx
                 context = context[stride:]
                 score = predictions[i][3]
-                if int(predictions[i][1]) == 0 and int(predictions[i][2]) != 0:
+                start_pre = int(predictions[i][1])
+                end_pre = int(predictions[i][2])
+                if start_pre != 0 and end_pre != 0:
                     if score > score_max:
                         score_max = score
-                        start_pre = int(predictions[i][1])
-                        end_pre = int(predictions[i][2])
+                        # start_pre = int(predictions[i][1])
+                        # end_pre = int(predictions[i][2])
                         label_prediction = " ".join(sent[start_pre:end_pre+1])
                 i += 1
             labels = sample['label']

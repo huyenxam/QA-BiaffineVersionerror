@@ -19,7 +19,7 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
     with open(path, 'r', encoding='utf8') as f:
         list_sample = json.load(f)
 
-    for i, sample in enumerate(list_sample): 
+    for sample in list_sample: 
         context = sample['context'].split(' ')
         question = sample['question'].split(' ')
 

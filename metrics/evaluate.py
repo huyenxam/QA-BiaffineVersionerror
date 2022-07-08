@@ -57,6 +57,8 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
                         label_prediction = " ".join(sent[start_pre:end_pre+1])
                 i += 1
             labels = sample['label']
+            f1_idx = [0]
+            extract_match_idx = [0]
             for lb in labels:
                 ground_truth = lb[3] 
                 # print(ground_truth)

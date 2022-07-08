@@ -210,8 +210,9 @@ def normalize_answer(s):
         for k, v in char_to_replace.items():
             text = text.replace(k, v)
         return text
-    # return white_space_fix(remove_punc(lower(remove_specialchar(s))))
-    return white_space_fix((lower(remove_specialchar(s))))
+
+    # return white_space_fix((lower(remove_specialchar(s))))
+    return white_space_fix(remove_punc(lower(s)))
 
 
 

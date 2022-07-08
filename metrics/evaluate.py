@@ -22,6 +22,7 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
     for sample in list_sample: 
         context = sample['context'].split(' ')
         question = sample['question'].split(' ')
+        text_context = context
 
         max_seq = max_seq_length - len(question) - 2 
         if len(context) <= max_seq:
@@ -35,7 +36,10 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
 
             labels = sample['label']
             for lb in labels:
-                ground_truth = lb[3]
+                start = lb[1]
+                end = lb[2]
+                ground_truth = " ".join(text_context[start:end+1])
+                # ground_truth = lb[3]
                 # print(ground_truth)
                 # print(label_prediction)
                 f1_idx.append(f1_score(label_prediction, ground_truth))
@@ -62,7 +66,10 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
             f1_idx = [0]
             extract_match_idx = [0]
             for lb in labels:
-                ground_truth = lb[3] 
+                start = lb[1]
+                end = lb[2]
+                ground_truth = " ".join(text_context[start:end+1])
+                # ground_truth = lb[3] 
                 # print(ground_truth)
                 # print(label_prediction)
                 f1_idx.append(f1_score(label_prediction, ground_truth))

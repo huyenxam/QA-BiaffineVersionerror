@@ -36,8 +36,8 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
 
             labels = sample['label']
             for lb in labels:
-                start = lb[1]
-                end = lb[2]
+                start = int(lb[1])
+                end = int(lb[2])
                 ground_truth = " ".join(text_context[start:end+1])
                 # ground_truth = lb[3]
                 # print(ground_truth)
@@ -66,8 +66,8 @@ def evaluate(predictions, max_char_len, max_seq_length, stride, mode):
             f1_idx = [0]
             extract_match_idx = [0]
             for lb in labels:
-                start = lb[1]
-                end = lb[2]
+                start = int(lb[1])
+                end = int(lb[2])
                 ground_truth = " ".join(text_context[start:end+1])
                 # ground_truth = lb[3] 
                 # print(ground_truth)
